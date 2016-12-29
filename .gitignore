@@ -1,0 +1,10 @@
+# npm
+/node_modules
+/npm-debug.log
+
+# firebase
+/.firebaserc
+/firebase.json
+
+# app
+/dist
