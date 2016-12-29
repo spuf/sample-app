@@ -1,14 +1,19 @@
 const {resolve} = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const packageInfo = require('./package.json')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
 
 let config = {
   entry: {
     app: [resolve(__dirname, 'src', 'main.js')],
-    vendor: Object.keys(packageInfo.dependencies)
+    vendor: [
+      'babel-polyfill',
+      'react',
+      'react-dom',
+      'react-redux',
+      'redux',
+      'styled-components'
+    ]
   },
   output: {
     path: resolve(__dirname, 'dist'),
@@ -32,9 +37,7 @@ let babelLoader = {
       'es2015',
       'react'
     ],
-    plugins: [
-      'transform-runtime'
-    ]
+    plugins: []
   }
 }
 let htmlLoader = {
@@ -67,8 +70,7 @@ if (process.env.NODE_ENV != 'production') {
       comments: false,
       beautify: false,
       sourceMap: false
-    }),
-    new OfflinePlugin()
+    })
   ])
   babelLoader.query.plugins = babelLoader.query.plugins.concat([
     'transform-react-inline-elements',

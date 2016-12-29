@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV == 'production') {
-  require('offline-plugin/runtime').install()
-}
+import 'babel-polyfill'
 import React from 'react'
 import {render} from 'react-dom'
 import {createStore} from 'redux'
