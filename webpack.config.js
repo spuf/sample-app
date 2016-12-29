@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const packageInfo = require('./package.json')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OfflinePlugin = require('offline-plugin')
 
 let config = {
   entry: {
@@ -14,10 +15,6 @@ let config = {
     filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
     new HtmlWebpackPlugin({
       template: resolve('src', 'index.html'),
       inject: 'body'
@@ -35,7 +32,9 @@ let babelLoader = {
       'es2015',
       'react'
     ],
-    plugins: []
+    plugins: [
+      'transform-runtime'
+    ]
   }
 }
 let htmlLoader = {
@@ -51,10 +50,14 @@ if (process.env.NODE_ENV != 'production') {
   }
 } else {
   config.plugins = config.plugins.concat([
+    new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
     new webpack.EnvironmentPlugin([
       'NODE_ENV'
     ]),
-    new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -62,8 +65,10 @@ if (process.env.NODE_ENV != 'production') {
         warnings: false
       },
       comments: false,
+      beautify: false,
       sourceMap: false
-    })
+    }),
+    new OfflinePlugin()
   ])
   babelLoader.query.plugins = babelLoader.query.plugins.concat([
     'transform-react-inline-elements',
