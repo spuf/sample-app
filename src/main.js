@@ -1,3 +1,4 @@
+// @flow
 import 'babel-polyfill'
 import React from 'react'
 import {render} from 'react-dom'
@@ -6,14 +7,11 @@ import {Provider} from 'react-redux'
 import {calculator} from './reducers'
 import {CalculatorApp} from './containers'
 import {loadState, saveState} from './storage'
+import type {Map} from 'immutable'
 
-const preloadedState = loadState({
-  allowed_deviation: 10,
-  expected: 29,
-  actual: 30
-})
+export type State = Map<string, string>
 
-const store = createStore(calculator, preloadedState)
+const store = createStore(calculator, loadState())
 store.subscribe(saveState(store))
 
 render(

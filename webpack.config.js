@@ -5,15 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 let config = {
   entry: {
-    app: [resolve(__dirname, 'src', 'main.js')],
-    vendor: [
-      'babel-polyfill',
-      'react',
-      'react-dom',
-      'react-redux',
-      'redux',
-      'styled-components'
-    ]
+    app: resolve(__dirname, 'src', 'main.js'),
+    vendor: []
   },
   output: {
     path: resolve(__dirname, 'dist'),
@@ -21,7 +14,7 @@ let config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: resolve('src', 'index.html'),
+      template: resolve(__dirname, 'src', 'index.html'),
       inject: 'body'
     })
   ],
@@ -42,7 +35,7 @@ let babelLoader = {
 }
 let htmlLoader = {
   test: /\.html$/,
-  loader: 'html',
+  loader: 'html-loader',
   query: {}
 }
 
@@ -52,6 +45,14 @@ if (process.env.NODE_ENV != 'production') {
     inline: true
   }
 } else {
+  config.entry.vendor = config.entry.vendor.concat([
+    'babel-polyfill',
+    'react',
+    'react-dom',
+    'react-redux',
+    'redux',
+    'styled-components'
+  ])
   config.plugins = config.plugins.concat([
     new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
     new webpack.EnvironmentPlugin([

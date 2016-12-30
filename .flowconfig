@@ -1,0 +1,11 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/.*/test/.*
+<PROJECT_ROOT>/node_modules/styled-components/src/.*
+
+[include]
+
+[libs]
+node_modules/styled-components/flow-typed/
+
+[options]
+suppress_comment=.*\\$FlowIssue

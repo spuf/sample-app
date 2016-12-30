@@ -1,9 +1,15 @@
+// @flow
 import {fromJS} from 'immutable'
-import {debounce, defaultsDeep} from 'lodash'
+import {debounce} from 'lodash'
+
+import type {Store} from 'redux'
+import type {State} from './main'
+import type {Action} from './actions'
+
 const KEY = 'state';
 
-export const loadState = (defaultState) => {
-  let loadedState = {}
+export const loadState = () => {
+  let loadedState
   try {
     const string = localStorage.getItem(KEY)
     let object;
@@ -11,16 +17,15 @@ export const loadState = (defaultState) => {
       object = JSON.parse(string)
     }
     if (object) {
-      loadedState = object
+      loadedState = fromJS(object)
     }
   } catch (e) {
     console.error(e)
   }
-  defaultsDeep(loadedState, defaultState)
-  return fromJS(loadedState)
+  return loadedState
 }
 
-export const saveState = (store) => debounce(() => {
+export const saveState = (store: Store<State, Action>) => debounce(() => {
   localStorage.setItem(KEY, JSON.stringify(store.getState().toJS()))
 }, 100)
 
