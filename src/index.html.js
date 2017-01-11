@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {createStore} from 'redux'
@@ -9,7 +10,9 @@ import {Map} from 'immutable'
 import map from 'lodash/map'
 import styleSheet from 'styled-components/lib/models/StyleSheet'
 
-const initialState = Map({
+import type {State} from './main'
+
+const initialState: State = Map({
   allowed_deviation: 'Loading...',
   expected: 'Loading...',
   actual: 'Loading...'
@@ -25,7 +28,7 @@ const styles = styleSheet.rules().map(rule => rule.cssText).join('\n')
 
 const preloadedState = store.getState().toJS()
 
-const renderFullPage = (html, preloadedState, templateParams) => `
+const renderFullPage = (html: string, preloadedState: Object, templateParams: Object) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,4 +53,4 @@ const renderFullPage = (html, preloadedState, templateParams) => `
 </html>
 `.trim()
 
-module.exports = (templateParams) => renderFullPage(html, preloadedState, templateParams)
+module.exports = (templateParams: Object): string => renderFullPage(html, preloadedState, templateParams)

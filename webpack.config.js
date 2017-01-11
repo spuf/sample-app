@@ -14,8 +14,8 @@ module.exports = {
 
   output: {
     path: resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[id].bundle.[chunkhash].js'
+    filename: '[name].[chunkhash:6].js',
+    chunkFilename: '[id].bundle.[chunkhash:6].js'
   },
 
   devtool: PD('cheap-module-source-map', 'cheap-module-eval-source-map'),
