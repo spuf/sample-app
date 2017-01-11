@@ -3,65 +3,52 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-let config = {
+const NODE_ENV = 'NODE_ENV'
+const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
+
+module.exports = {
   entry: {
     app: resolve(__dirname, 'src', 'main.js'),
     vendor: []
   },
+
   output: {
     path: resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[id].bundle.[chunkhash].js'
   },
+
+  devtool: PD('cheap-module-source-map', 'cheap-module-eval-source-map'),
+  devServer: PD(null, {inline: true}),
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, 'src', 'index.html'),
-      inject: 'body'
-    })
-  ],
-  module: {/* see below */}
-};
-let babelLoader = {
-  test: /\.js$/,
-  exclude: /node_modules/,
-  loader: 'babel-loader',
-  query: {
-    babelrc: false,
-    presets: [
-      'es2015',
-      'react'
-    ],
-    plugins: []
-  }
-}
-let htmlLoader = {
-  test: /\.html$/,
-  loader: 'html-loader',
-  query: {}
-}
-
-if (process.env.NODE_ENV != 'production') {
-  config.devtool = 'cheap-module-eval-source-map'
-  config.devServer = {
-    inline: true
-  }
-} else {
-  config.entry.vendor = config.entry.vendor.concat([
-    'babel-polyfill',
-    'react',
-    'react-dom',
-    'react-redux',
-    'redux',
-    'styled-components'
-  ])
-  config.plugins = config.plugins.concat([
-    new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
+      template: resolve(__dirname, 'src', 'index.html.js'),
+      inject: false,
+      minify: PD({
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+        decodeEntities: true,
+        quoteCharacter: '"',
+        removeComments: true,
+        removeRedundantAttributes: true,
+        minifyCSS: true,
+        minifyJS: true
+      }, false)
+    }),
     new webpack.EnvironmentPlugin([
-      'NODE_ENV'
+      NODE_ENV
     ]),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity
+      minChunks: (module) => {
+        const userRequest = module.userRequest;
+        return userRequest && /node_modules/.test(userRequest);
+      }
     }),
+  ].concat(PD([
+    new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -69,21 +56,30 @@ if (process.env.NODE_ENV != 'production') {
         warnings: false
       },
       comments: false,
-      beautify: false,
-      sourceMap: false
+      beautify: false
     })
-  ])
-  babelLoader.query.plugins = babelLoader.query.plugins.concat([
-    'transform-react-inline-elements',
-    'transform-react-constant-elements',
-    'transform-react-remove-prop-types'
-  ])
-  htmlLoader.query.minimize = true
+  ], [])),
+
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          babelrc: false,
+          presets: [
+            'es2015',
+            'react'
+          ],
+          plugins: [].concat(PD([
+            'transform-react-inline-elements',
+            'transform-react-constant-elements',
+            'transform-react-remove-prop-types'
+          ], []))
+        }
+      }
+    ]
+  }
+
 }
-
-config.module.loaders = [
-  babelLoader,
-  htmlLoader
-]
-
-module.exports = config
