@@ -2,6 +2,7 @@ const {resolve} = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const LicenseWebpackPlugin = require('license-webpack-plugin')
 
 const NODE_ENV = 'NODE_ENV'
 const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
@@ -29,17 +30,11 @@ module.exports = {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,
         conservativeCollapse: true,
-        decodeEntities: true,
-        quoteCharacter: '"',
-        removeComments: true,
-        removeRedundantAttributes: true,
         minifyCSS: true,
         minifyJS: true
       }, false)
     }),
-    new webpack.EnvironmentPlugin([
-      NODE_ENV
-    ]),
+    new webpack.EnvironmentPlugin(process.env[NODE_ENV] ? [NODE_ENV] : []),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: (module) => {
@@ -48,17 +43,24 @@ module.exports = {
       }
     }),
   ].concat(PD([
-    new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      comments: false,
-      beautify: false
-    })
-  ], [])),
+      new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
+      new LicenseWebpackPlugin({
+        filename: '3rdpartylicenses.txt',
+        pattern: /^(MIT|ISC|BSD.*)$/,
+        suppressErrors: true
+      }),
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+        comments: false
+      }),
+      new webpack.BannerPlugin('Third party licenses can be found in 3rdpartylicenses.txt')
+    ],
+    []
+  )),
 
   module: {
     loaders: [
