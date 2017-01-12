@@ -1,4 +1,3 @@
-// @flow
 'use strict'
 
 import React from 'react'
@@ -12,9 +11,7 @@ import map from 'lodash/map'
 import styleSheet from 'styled-components/lib/models/StyleSheet'
 import {injectGlobal} from 'styled-components'
 
-import type {State} from './main'
-
-const loadingState: State = Map({
+const loadingState = Map({
   allowed_deviation: 'Loading...',
   expected: 'Loading...',
   actual: 'Loading...'
@@ -41,7 +38,7 @@ const html = renderToStaticMarkup(
 )
 const css = styleSheet.rules().map(rule => rule.cssText).join('\n')
 
-const renderFullPage = (html: string, css: string, templateParams: Object) => `
+const renderFullPage = (html, css, templateParams) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,4 +67,4 @@ const renderFullPage = (html: string, css: string, templateParams: Object) => `
 </html>
 `.trim()
 
-module.exports = (templateParams: Object): string => renderFullPage(html, css, templateParams)
+module.exports = (templateParams) => renderFullPage(html, css, templateParams)

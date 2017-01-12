@@ -1,25 +1,18 @@
-// @flow
 'use strict'
 
 import {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {update} from './actions'
 import {LabelledInput, Calculator} from './components'
-import type {Action} from './actions'
-import type {State} from './main'
-import type {LabelledInputProps, LabelledInputHandlers, CalculatorProps} from './components'
 
-type BondedInputProps = {
-  name: string
-}
 export const BondedInput = connect(
-  (state: State, ownProps: BondedInputProps): LabelledInputProps => {
+  (state, ownProps) => {
     return {
       value: state.get(ownProps.name),
       text: ownProps.name
     }
   },
-  (dispatch: (action: Action) => any, ownProps: BondedInputProps): LabelledInputHandlers => {
+  (dispatch, ownProps) => {
     return {
       onChange: (value) => {
         dispatch(update(ownProps.name, value))
@@ -32,7 +25,7 @@ BondedInput.propTypes = {
 }
 
 export const CalculatorApp = connect(
-  (state: State): CalculatorProps => {
+  (state) => {
     return {
       allowed_deviation: state.get('allowed_deviation'),
       expected: state.get('expected'),

@@ -4,13 +4,10 @@ import styled, {css, injectGlobal} from 'styled-components'
 
 injectGlobal`
   body {
-    font-family: sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: medium;
     background-color: white;
     color: black;
-  }
-  html.wf-active body {
-    font-family: "Roboto", sans-serif;
   }
 `
 
@@ -42,7 +39,7 @@ const ContainerItem = styled.div`
   padding: 10px;
   flex: 1 100%;
   ${media.big`
-    order: ${props => props.order || 0}
+    order: ${props => props.order || 0};
   `}
   align-self: flex-end;
 `
