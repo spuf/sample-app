@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 import React, {PropTypes} from 'react'
 import {Container, Row, RowInside, Aside} from './styles'
 import {BondedInput} from './containers'

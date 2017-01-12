@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 import {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {update} from './actions'

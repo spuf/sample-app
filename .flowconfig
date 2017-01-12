@@ -8,4 +8,4 @@
 node_modules/styled-components/flow-typed/
 
 [options]
-suppress_comment=.*\\$FlowIssue
+suppress_comment = .*\\$FlowIssue

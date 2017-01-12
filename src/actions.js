@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 export const UPDATE = Symbol('UPDATE')
 
 type ActionTypes = typeof UPDATE

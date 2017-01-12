@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 import {fromJS} from 'immutable'
 import {debounce} from 'lodash'
 

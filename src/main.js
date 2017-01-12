@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 import 'babel-polyfill'
 import React from 'react'
 import {render} from 'react-dom'
@@ -7,8 +9,8 @@ import {Provider} from 'react-redux'
 import {calculator} from './reducers'
 import {CalculatorApp} from './containers'
 import {loadState, saveState} from './storage'
-import type {Map} from 'immutable'
 
+import type {Map} from 'immutable'
 export type State = Map<string, string>
 
 const store = createStore(calculator, loadState())

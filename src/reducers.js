@@ -1,4 +1,6 @@
 // @flow
+'use strict'
+
 import {UPDATE} from './actions'
 import {Map} from 'immutable'
 import type {State} from './main'

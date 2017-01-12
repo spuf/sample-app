@@ -1,3 +1,5 @@
+'use strict'
+
 const {resolve} = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -46,7 +48,7 @@ module.exports = {
       new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
       new LicenseWebpackPlugin({
         filename: '3rdpartylicenses.txt',
-        pattern: /^(MIT|ISC|BSD.*)$/,
+        pattern: /^.*$/,
         suppressErrors: true
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),

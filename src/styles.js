@@ -1,4 +1,18 @@
-import styled, {css} from 'styled-components'
+'use strict'
+
+import styled, {css, injectGlobal} from 'styled-components'
+
+injectGlobal`
+  body {
+    font-family: sans-serif;
+    font-size: medium;
+    background-color: white;
+    color: black;
+  }
+  html.wf-active body {
+    font-family: "Roboto", sans-serif;
+  }
+`
 
 const media = {
   big: (...args) => css`
