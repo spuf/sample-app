@@ -14,7 +14,7 @@ import map from 'lodash/map'
 const loadingState = Map({
   allowed_deviation: 'Loading...',
   expected: 'Loading...',
-  actual: 'Loading...'
+  actual: 'Loading...',
 })
 const store = createStore(calculator, loadingState)
 

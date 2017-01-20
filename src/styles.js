@@ -31,7 +31,7 @@ const media = {
     @media all and (max-width: 249px) {
       ${css(...args)}
     } 
-  `
+  `,
 }
 
 export const Container = styled.div`

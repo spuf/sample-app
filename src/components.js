@@ -15,7 +15,7 @@ export const LabelledInput = ({text, value, onChange}) => (
 LabelledInput.propTypes = {
   text: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }
 
 export const Calculator = (props) => {
@@ -72,5 +72,5 @@ export const Calculator = (props) => {
 Calculator.propTypes = {
   allowed_deviation: PropTypes.string.isRequired,
   expected: PropTypes.string.isRequired,
-  actual: PropTypes.string.isRequired
+  actual: PropTypes.string.isRequired,
 }

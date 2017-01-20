@@ -3,13 +3,13 @@
 import {fromJS} from 'immutable'
 import debounce from 'lodash/debounce'
 
-const KEY = 'state';
+const KEY = 'state'
 
 export const loadState = () => {
   let loadedState
   try {
     const string = localStorage.getItem(KEY)
-    let object;
+    let object
     if (string) {
       object = JSON.parse(string)
     }

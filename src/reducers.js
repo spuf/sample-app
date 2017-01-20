@@ -6,7 +6,7 @@ import {Map} from 'immutable'
 const initialState = Map({
   allowed_deviation: '3.5',
   expected: '29',
-  actual: '30'
+  actual: '30',
 })
 
 export const calculator = (state = initialState, action) => {
