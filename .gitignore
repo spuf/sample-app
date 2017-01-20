@@ -4,10 +4,7 @@
 /yarn-error.log
 
 # firebase
-/.firebaserc
-/firebase.json
 /firebase-debug.log
-/Makefile
 
 # app
 /dist
