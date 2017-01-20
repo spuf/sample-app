@@ -11,8 +11,7 @@ const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
 
 module.exports = {
   entry: {
-    app: resolve(__dirname, 'src', 'main.js'),
-    vendor: []
+    app: resolve(__dirname, 'src', 'main.js')
   },
 
   output: {
@@ -22,7 +21,7 @@ module.exports = {
   },
 
   devtool: PD('cheap-module-source-map', 'cheap-module-eval-source-map'),
-  devServer: PD(null, {inline: true}),
+  devServer: PD({}, {inline: true}),
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -51,29 +50,27 @@ module.exports = {
         pattern: /^.*$/,
         suppressErrors: true
       }),
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        },
-        comments: false
+        comments: false,
+        sourceMap: true
       }),
-      new webpack.BannerPlugin('Third party licenses can be found in 3rdpartylicenses.txt')
+      new webpack.BannerPlugin({banner: 'Third party licenses can be found in 3rdpartylicenses.txt'})
     ],
     []
   )),
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
+        options: {
           babelrc: false,
           presets: [
-            'es2015',
+            ['es2015', {
+              modules: false
+            }],
             'react'
           ],
           plugins: [].concat(PD([
