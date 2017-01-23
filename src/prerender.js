@@ -63,14 +63,6 @@ const renderFullPage = (html, css, templateParams) => `
   <title>App</title>
   <link rel="shortcut icon" href="https://arseny.me/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6/webfont.js"></script>
-  <script>
-    WebFont.load({
-      google: {
-        families: ['Roboto']
-      }
-    });
-  </script>  
 </head>
 <body>
   <div id="app">

@@ -2,17 +2,15 @@
 
 import styled, {css, injectGlobal} from 'styled-components'
 
-const fonts = ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
-const fontsCss = (fonts) => fonts.map(font => `"${font}"`).join(', ')
 injectGlobal`
   body {
-    font-family: ${fontsCss(fonts)};
+    font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
     font-size: medium;
+    color: #212121;
     background-color: white;
-    color: black;
-  }
-  html.wf-active body {
-    font-family: ${fontsCss(['Roboto'].concat(fonts))};
   }
 `
 

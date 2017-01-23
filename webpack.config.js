@@ -12,12 +12,13 @@ const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
 module.exports = {
   entry: {
     app: resolve(__dirname, 'src', 'main.js'),
+    polyfill: 'babel-polyfill',
   },
 
   output: {
     path: resolve(__dirname, 'dist'),
     filename: '[name].[chunkhash:6].js',
-    chunkFilename: '[id].bundle.[chunkhash:6].js',
+    chunkFilename: '[name].chunk.[chunkhash:6].js',
   },
 
   devtool: PD('cheap-module-source-map', 'cheap-module-eval-source-map'),
@@ -37,7 +38,8 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin(process.env[NODE_ENV] ? [NODE_ENV] : []),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      names: 'vendor',
+      chunks: ['app'],
       minChunks: (module) => {
         const userRequest = module.userRequest
         return userRequest && /node_modules/.test(userRequest)
