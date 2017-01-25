@@ -11,7 +11,7 @@ const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
 
 module.exports = {
   entry: {
-    app: resolve(__dirname, 'src', 'main.js'),
+    app: resolve(__dirname, 'src', 'app.js'),
     polyfill: 'babel-polyfill',
   },
 
@@ -21,8 +21,18 @@ module.exports = {
     chunkFilename: '[name].chunk.[chunkhash:6].js',
   },
 
-  devtool: PD('cheap-module-source-map', 'cheap-module-eval-source-map'),
+  devtool: PD('hidden-cheap-module-source-map', 'cheap-module-eval-source-map'),
   devServer: PD({}, {inline: true}),
+
+  performance: {
+    hints: 'error',
+    maxEntrypointSize: 1024 ** 3,
+    maxAssetSize: 1024 ** 3,
+  },
+
+  stats: {
+    children: false,
+  },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -56,7 +66,10 @@ module.exports = {
       comments: false,
       sourceMap: true,
     }),
-    new webpack.BannerPlugin({banner: 'Third party licenses can be found in 3rdpartylicenses.txt'}),
+    new webpack.BannerPlugin({
+      banner: 'Third party licenses can be found in 3rdpartylicenses.txt',
+      entryOnly: true,
+    }),
   ], [])),
 
   module: {
@@ -68,8 +81,12 @@ module.exports = {
         options: {
           babelrc: false,
           presets: [
-            ['es2015', {
+            ['env', {
               modules: false,
+              useBuiltIns: true,
+              targets: {
+                browsers: '> 5%, last 2 versions, ie >= 9',
+              },
             }],
             'react',
           ],
