@@ -2,6 +2,7 @@ default: upgrade test build deploy
 
 upgrade:
 	yarn install
+	yarn outdated || true
 	yarn upgrade
 
 test:

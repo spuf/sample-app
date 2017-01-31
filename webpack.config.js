@@ -83,10 +83,6 @@ module.exports = {
           presets: [
             ['env', {
               modules: false,
-              useBuiltIns: true,
-              targets: {
-                browsers: '> 5%, last 2 versions, ie >= 9',
-              },
             }],
             'react',
           ],
