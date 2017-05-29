@@ -7,9 +7,8 @@ import {Provider} from 'react-redux'
 import {calculator} from './reducers'
 import {CalculatorApp} from './containers'
 import {Map} from 'immutable'
-import map from 'lodash/map'
-// import styleSheet from 'styled-components/lib/models/StyleSheet'
-// import {injectGlobal} from 'styled-components'
+import {map} from 'lodash-es'
+import {ServerStyleSheet, injectGlobal} from 'styled-components'
 
 const loadingState = Map({
   allowed_deviation: 'Loading...',
@@ -18,41 +17,14 @@ const loadingState = Map({
 })
 const store = createStore(calculator, loadingState)
 
-// injectGlobal`
-//   body::before {
-//     content: " ";
-//     z-index: 10;
-//     display: block;
-//     position: absolute;
-//     height: 100%;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     background: rgba(0, 0, 0, 0.1);
-//   }
-// `
-const html = renderToStaticMarkup(
+const sheet = new ServerStyleSheet()
+
+const html = renderToStaticMarkup(sheet.collectStyles(
   <Provider store={store}>
     <CalculatorApp />
   </Provider>
-)
-// @todo: not working in styled-components 1.4.2 with webpack 2
-//const css = styleSheet.rules().map(rule => rule.cssText).join('\n')
-const css = `
-  body::before {
-    content: "Loading...";
-    text-align: center;
-    padding-top: 5%;
-    z-index: 10;
-    display: block;
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: white;
-  }
-`
+))
+const css = sheet.getStyleTags()
 
 const renderFullPage = (html, css, templateParams) => `
 <!DOCTYPE html>
@@ -63,10 +35,10 @@ const renderFullPage = (html, css, templateParams) => `
   <title>App</title>
   <link rel="shortcut icon" href="https://arseny.me/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  ${css}
 </head>
 <body>
   <div id="app">
-    <style>${css}</style>
     ${html}
   </div>
   ${map(templateParams.htmlWebpackPlugin.files.chunks, (chunk) =>

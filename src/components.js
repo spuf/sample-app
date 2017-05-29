@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react'
 import {Container, Row, RowInside, Aside} from './styles'
 import {BondedInput} from './containers'
-import round from 'lodash/round'
+import {round} from 'lodash-es'
 
 export const LabelledInput = ({text, value, onChange}) => (
   <label>

@@ -7,9 +7,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const LicenseWebpackPlugin = require('license-webpack-plugin')
 
 const NODE_ENV = 'NODE_ENV'
-const PD = (prod, dev) => (process.env[NODE_ENV] == 'production' ? prod : dev)
+const PD = (prod, dev) => (process.env[NODE_ENV] === 'production' ? prod : dev)
 
 module.exports = {
+  context: __dirname,
+
   entry: {
     app: resolve(__dirname, 'src', 'app.js'),
     polyfill: 'babel-polyfill',
@@ -89,7 +91,7 @@ module.exports = {
           plugins: [].concat(PD([
             'transform-react-inline-elements',
             'transform-react-constant-elements',
-            'transform-react-remove-prop-types',
+            ['transform-react-remove-prop-types', {ignoreFilenames: ['node_modules']}],
           ], [])),
         },
       },

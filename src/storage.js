@@ -1,7 +1,7 @@
 'use strict'
 
 import {fromJS} from 'immutable'
-import debounce from 'lodash/debounce'
+import {debounce} from 'lodash-es'
 
 const KEY = 'state'
 
