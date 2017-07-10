@@ -1,16 +1,15 @@
 'use strict'
 
+import {map} from 'lodash-es'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import {calculator} from './reducers'
+import {createStore} from 'redux'
+import {ServerStyleSheet} from 'styled-components'
 import {CalculatorApp} from './containers'
-import {Map} from 'immutable'
-import {map} from 'lodash-es'
-import {ServerStyleSheet, injectGlobal} from 'styled-components'
+import {calculator, StateRecord} from './reducers'
 
-const loadingState = Map({
+const loadingState = new StateRecord({
   allowed_deviation: 'Loading...',
   expected: 'Loading...',
   actual: 'Loading...',

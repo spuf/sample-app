@@ -1,9 +1,9 @@
 'use strict'
 
-import {PropTypes} from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {update} from './actions'
-import {LabelledInput, Calculator} from './components'
+import {Calculator, LabelledInput} from './components'
 
 export const BondedInput = connect(
   (state, ownProps) => {

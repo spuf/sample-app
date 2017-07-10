@@ -1,13 +1,15 @@
 'use strict'
 
+import {Record} from 'immutable'
 import {UPDATE} from './actions'
-import {Map} from 'immutable'
 
-const initialState = Map({
+export const StateRecord = Record({
   allowed_deviation: '3.5',
   expected: '29',
   actual: '30',
-})
+}, 'StateRecord')
+
+const initialState = new StateRecord()
 
 export const calculator = (state = initialState, action) => {
   switch (action.type) {

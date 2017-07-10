@@ -1,9 +1,10 @@
 'use strict'
 
-import React, {PropTypes} from 'react'
-import {Container, Row, RowInside, Aside} from './styles'
-import {BondedInput} from './containers'
 import {round} from 'lodash-es'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {BondedInput} from './containers'
+import {Aside, Container, Row, RowInside} from './styles'
 
 export const LabelledInput = ({text, value, onChange}) => (
   <label>
