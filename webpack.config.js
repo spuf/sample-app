@@ -4,7 +4,7 @@ const {resolve} = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const LicenseWebpackPlugin = require('license-webpack-plugin')
+const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin
 
 const NODE_ENV = 'NODE_ENV'
 const PD = (prod, dev) => (process.env[NODE_ENV] === 'production' ? prod : dev)
@@ -60,17 +60,15 @@ module.exports = {
   ].concat(PD([
     new CleanWebpackPlugin([resolve(__dirname, 'dist')]),
     new LicenseWebpackPlugin({
-      filename: '3rdpartylicenses.txt',
       pattern: /^.*$/,
       suppressErrors: true,
+      perChunkOutput: false,
+      outputFilename: '3rdpartylicenses.txt',
+      addBanner: true,
     }),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       sourceMap: true,
-    }),
-    new webpack.BannerPlugin({
-      banner: 'Third party licenses can be found in 3rdpartylicenses.txt',
-      entryOnly: true,
     }),
   ], [])),
 
