@@ -41,7 +41,7 @@ const renderFullPage = (html, css, templateParams) => `
     ${html}
   </div>
   ${map(templateParams.htmlWebpackPlugin.files.chunks, (chunk) =>
-    `<script src="${chunk.entry}"></script>`
+    `<script src="${chunk.entry}" defer></script>`
   ).join('\n')}
 </body>
 </html>

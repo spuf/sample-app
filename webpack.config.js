@@ -14,7 +14,6 @@ module.exports = {
 
   entry: {
     app: resolve(__dirname, 'src', 'app.js'),
-    polyfill: 'babel-polyfill',
   },
 
   output: {
@@ -83,6 +82,14 @@ module.exports = {
           presets: [
             ['env', {
               modules: false,
+              useBuiltIns: 'usage',
+              targets: {
+                browsers: [
+                  '> 1%',
+                  'last 2 versions',
+                  'Firefox ESR',
+                ],
+              },
             }],
             'react',
           ],
