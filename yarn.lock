@@ -660,10 +660,8 @@ babel-plugin-transform-react-jsx@^6.24.1:
     babel-runtime "^6.22.0"
 
 babel-plugin-transform-react-remove-prop-types@^0.4.5:
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.8.tgz#0aff04bc1d6564ec49cf23bcffb99c11881958db"
-  dependencies:
-    babel-traverse "^6.25.0"
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.9.tgz#6805ef83d77bda94ded472ff2f2836bacd6ac44c"
 
 babel-plugin-transform-regenerator@^6.22.0:
   version "6.26.0"
@@ -767,7 +765,7 @@ babel-template@^6.24.1, babel-template@^6.26.0:
     babylon "^6.18.0"
     lodash "^4.17.4"
 
-babel-traverse@^6.24.1, babel-traverse@^6.25.0, babel-traverse@^6.26.0:
+babel-traverse@^6.24.1, babel-traverse@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.26.0.tgz#46a9cbd7edcc62c8e5c064e2d2d8d0f4035766ee"
   dependencies:
@@ -1672,8 +1670,8 @@ eslint-scope@^3.7.1:
     estraverse "^4.1.1"
 
 eslint@^4.2.0:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.7.2.tgz#ff6f5f5193848a27ee9b627be3e73fb9cb5e662e"
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.8.0.tgz#229ef0e354e0e61d837c7a80fdfba825e199815e"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -2748,8 +2746,8 @@ levn@^0.3.0, levn@~0.3.0:
     type-check "~0.3.2"
 
 license-webpack-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-1.0.1.tgz#abeb3ab168a9930f2fd57311951dc094aaf33e45"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-1.0.2.tgz#2224dcc1fb8c6ac5a648794665a5bb1b1885a7ca"
   dependencies:
     ejs "^2.5.7"
 
