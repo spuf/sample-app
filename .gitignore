@@ -3,8 +3,5 @@
 /npm-debug.log
 /yarn-error.log
 
-# firebase
-/firebase-debug.log
-
 # app
 /dist

@@ -1,4 +1,4 @@
-default: upgrade test build deploy
+default: upgrade test build
 
 upgrade:
 	yarn install
@@ -10,6 +10,3 @@ test:
 
 build:
 	NODE_ENV=production yarn build
-
-deploy:
-	firebase deploy
